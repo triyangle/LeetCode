@@ -1,10 +1,5 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         sorted_nums = sorted(nums)
         low, high = 0, len(nums) - 1
         while low < high:
@@ -15,7 +10,7 @@ class Solution(object):
                 high -= 1
             else:
                 low += 1
-        
+
 #        i, lower_index, upper_index = 0, None, None
 #        while (lower_index is None or upper_index is None) and i < len(nums):
 #            if lower_index is None and nums[i] == lower:
@@ -32,5 +27,23 @@ class Solution(object):
             if nums[j] == upper:
                 upper_index = j
                 break;
-                
+
         return [min(lower_index, upper_index), max(lower_index, upper_index)]
+
+    def twoSumMap(self, nums: List[int], target: int) -> List[int]:
+        num_dict = dict()
+
+        for i, num in enumerate(nums):
+            if num not in num_dict:
+                num_dict[num] = [i]
+            else:
+                num_dict[num].append(i)
+
+        for i, num in enumerate(nums):
+            diff = target - num
+
+            if diff in num_dict:
+                if diff == num and len(num_dict[diff]) == 1:
+                    continue
+                else:
+                    return [i, num_dict[diff][0]]
